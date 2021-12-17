@@ -25,13 +25,19 @@ app.get("/api/hello", function (req, res) {
 });
 
 // Api for date
-app.get("/api/:date", (req, res) => {
+app.get("/api/:date?", (req, res) => {
   let date;
-  if (isNaN(req.params.date)) {
-    date = new Date(req.params.date);
-    console.log(date);
+  
+  // check param
+  if (req.params.date) {
+    if (isNaN(req.params.date)) {
+      date = new Date(req.params.date);
+      console.log(date);
+    } else {
+      date = new Date(Number(req.params.date));
+    }
   } else {
-    date = new Date(Number(req.params.date));
+    date = new Date();
   }
 
   const output = {
